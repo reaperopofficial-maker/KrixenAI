@@ -12,6 +12,7 @@ import Login from './components/Login';
 import ImageStudio from './components/ImageStudio';
 import VideoStudio from './components/VideoStudio';
 import VoiceStudio from './components/VoiceStudio';
+import Profile from './components/Profile';
 import BottomNav from './components/BottomNav';
 import { Toaster } from 'react-hot-toast';
 import { AnimatePresence, motion } from 'motion/react';
@@ -70,7 +71,7 @@ function AppContent() {
             <Route path="/image" element={user ? <ImageStudio /> : <Navigate to="/login" replace />} />
             <Route path="/video" element={user ? <VideoStudio /> : <Navigate to="/login" replace />} />
             <Route path="/voice" element={user ? <VoiceStudio /> : <Navigate to="/login" replace />} />
-            <Route path="/profile" element={user ? <div className="p-6 pt-12"><h2 className="text-2xl font-bold">Profile</h2></div> : <Navigate to="/login" replace />} />
+            <Route path="/profile" element={user ? <Profile /> : <Navigate to="/login" replace />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
           {!isAuthRoute && <BottomNav />}

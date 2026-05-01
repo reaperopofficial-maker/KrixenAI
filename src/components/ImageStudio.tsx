@@ -5,6 +5,7 @@ import { cn } from '../lib/utils';
 import toast from 'react-hot-toast';
 import { auth } from '../lib/firebase';
 import { useNavigate } from 'react-router-dom';
+import { saveToLibrary } from '../lib/library';
 
 const API_KEY = "Sxke9cEkWwjgj3eNBr7kLqLC";
 
@@ -191,20 +192,24 @@ export default function ImageStudio() {
       // Assume data.images is an array of URLs
       if (data.images && data.images.length > 0) {
          setGeneratedImages(data.images);
-         setHistory(prev => [{
-           id: Date.now().toString(),
-           prompt,
-           negativePrompt,
-           model: selectedModel,
-           aspectRatio,
-           batchCount,
-           style: selectedStyle,
-           moods: selectedMoods,
-           lighting: selectedLighting,
-           cameraAngle: selectedAngle,
-           images: data.images,
-           timestamp: Date.now()
-         }, ...prev]);
+         setHistory(prev => {
+           const newItem = {
+             id: Date.now().toString(),
+             prompt,
+             negativePrompt,
+             model: selectedModel,
+             aspectRatio,
+             batchCount,
+             style: selectedStyle,
+             moods: selectedMoods,
+             lighting: selectedLighting,
+             cameraAngle: selectedAngle,
+             images: data.images,
+             timestamp: Date.now()
+           };
+           saveToLibrary('images', newItem);
+           return [newItem, ...prev];
+         });
       } else {
          throw new Error("No images returned");
       }
@@ -215,20 +220,24 @@ export default function ImageStudio() {
         setProgress(100);
         const placeholderImages = Array(batchCount).fill(0).map((_, i) => `https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?w=800&h=800&fit=crop&q=80&sig=${Math.random()}`);
         setGeneratedImages(placeholderImages);
-        setHistory(prev => [{
-          id: Date.now().toString(),
-          prompt,
-          negativePrompt,
-          model: selectedModel,
-          aspectRatio,
-          batchCount,
-          style: selectedStyle,
-          moods: selectedMoods,
-          lighting: selectedLighting,
-          cameraAngle: selectedAngle,
-          images: placeholderImages,
-          timestamp: Date.now()
-        }, ...prev]);
+        setHistory(prev => {
+          const newItem = {
+            id: Date.now().toString(),
+            prompt,
+            negativePrompt,
+            model: selectedModel,
+            aspectRatio,
+            batchCount,
+            style: selectedStyle,
+            moods: selectedMoods,
+            lighting: selectedLighting,
+            cameraAngle: selectedAngle,
+            images: placeholderImages,
+            timestamp: Date.now()
+          };
+          saveToLibrary('images', newItem);
+          return [newItem, ...prev];
+        });
       }, 2000);
     } finally {
       setTimeout(() => setIsGenerating(false), 500);

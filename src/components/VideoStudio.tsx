@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Settings2, Sparkles, Upload, X, ChevronDown, ChevronRight, Maximize2, Download, RefreshCcw, Heart, Camera, Search, Cpu, History, RotateCcw, Clapperboard, MonitorPlay, Video, Info } from 'lucide-react';
 import { cn } from '../lib/utils';
 import toast from 'react-hot-toast';
+import { saveToLibrary } from '../lib/library';
 
 const API_KEY = "Sxke9cEkWwjgj3eNBr7kLqLC";
 
@@ -147,16 +148,20 @@ export default function VideoStudio() {
         setTimeout(() => {
           setGeneratedVideo('https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4');
           setIsGenerating(false);
-          setHistory(prev => [{
-            id: Date.now().toString(),
-            prompt,
-            negativePrompt,
-            mode: activeMode,
-            model: selectedModel,
-            duration,
-            video: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4',
-            timestamp: Date.now()
-          }, ...prev]);
+          setHistory(prev => {
+            const newItem = {
+              id: Date.now().toString(),
+              prompt,
+              negativePrompt,
+              mode: activeMode,
+              model: selectedModel,
+              duration,
+              video: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4',
+              timestamp: Date.now()
+            };
+            saveToLibrary('videos', { ...newItem, url: newItem.video });
+            return [newItem, ...prev];
+          });
         }, 500);
       }
     }, 100);

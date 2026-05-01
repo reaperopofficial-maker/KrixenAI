@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Settings2, Sparkles, Upload, X, ChevronDown, ChevronRight, Maximize2, Download, RefreshCcw, Heart, Mic, FileText, MessageSquareMore, Play, Pause, GripVertical, Plus, Info } from 'lucide-react';
 import { cn } from '../lib/utils';
 import toast from 'react-hot-toast';
+import { saveToLibrary } from '../lib/library';
 
 const API_KEY = "Sxke9cEkWwjgj3eNBr7kLqLC";
 
@@ -111,8 +112,15 @@ export default function VoiceStudio() {
       if (p >= 100) {
         clearInterval(interval);
         setTimeout(() => {
-          setGeneratedAudio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3');
+          const url = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3';
+          setGeneratedAudio(url);
           setIsGenerating(false);
+          saveToLibrary('voice', { 
+            id: Date.now().toString(),
+            text: activeMode === 'tts' ? textPrompt : (activeMode === 'doc2speech' ? uploadedDoc?.name : 'Dialogue'),
+            url,
+            timestamp: Date.now()
+          });
         }, 500);
       }
     }, 100);

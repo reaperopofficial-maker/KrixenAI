@@ -2,18 +2,18 @@
 @import "tailwindcss";
 
 @theme {
-  --color-base: #08090D;
-  --color-surface: #0F1117;
-  --color-elevated: #161A24;
+  --color-base: var(--theme-base, #08090D);
+  --color-surface: var(--theme-surface, #0F1117);
+  --color-elevated: var(--theme-elevated, #161A24);
 
   --color-primary-blue: #4F8EF7;
   --color-secondary-violet: #7C5CF6;
   --color-primary-rose: #F0506E;
   --color-success-green: #22C55E;
 
-  --color-text-primary: #F0F2F8;
-  --color-text-secondary: #8B92A5;
-  --color-text-muted: #4A5168;
+  --color-text-primary: var(--theme-text-primary, #F0F2F8);
+  --color-text-secondary: var(--theme-text-secondary, #8B92A5);
+  --color-text-muted: var(--theme-text-muted, #4A5168);
 
   --radius-card: 22px;
   --radius-input: 16px;
@@ -27,6 +27,15 @@
 }
 
 @layer base {
+  .light {
+    --theme-base: #F8FAFC;
+    --theme-surface: #FFFFFF;
+    --theme-elevated: #F1F5F9;
+    --theme-text-primary: #0F1117;
+    --theme-text-secondary: #475569;
+    --theme-text-muted: #94A3B8;
+  }
+
   body {
     @apply bg-base text-text-primary font-ui antialiased;
     overscroll-behavior: none;
