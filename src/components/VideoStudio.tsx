@@ -193,10 +193,21 @@ export default function VideoStudio() {
         </div>
       </header>
 
-      <div className="flex-1 overflow-y-auto pb-32 pt-4 px-4 custom-scrollbar relative z-10">
+      <motion.div 
+        initial="hidden"
+        animate="visible"
+        variants={{
+          hidden: { opacity: 0 },
+          visible: {
+            opacity: 1,
+            transition: { staggerChildren: 0.05 }
+          }
+        }}
+        className="flex-1 overflow-y-auto pb-32 pt-4 px-4 custom-scrollbar relative z-10"
+      >
         
         {/* Mode Selector */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-4 custom-scrollbar snap-x">
+        <motion.div variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0 } }} className="flex items-center gap-2 overflow-x-auto pb-4 custom-scrollbar snap-x">
           {MODES.map(mode => (
             <button
               key={mode.id}
@@ -209,12 +220,13 @@ export default function VideoStudio() {
               {mode.name}
             </button>
           ))}
-        </div>
+        </motion.div>
 
         {/* Mode Info Box */}
         <AnimatePresence mode="wait">
           {activeMode && (
             <motion.div
+              layout
               key={activeMode}
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -245,7 +257,7 @@ export default function VideoStudio() {
         </AnimatePresence>
 
         {/* Model Selector */}
-        <div className="relative mb-6">
+        <motion.div variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0 } }} className="relative mb-6">
           <div className="text-[14px] font-semibold text-text-primary mb-2 tracking-wide pl-1">Video Model</div>
           <button 
             onClick={() => setModelDropdownOpen(!modelDropdownOpen)}
@@ -300,7 +312,7 @@ export default function VideoStudio() {
               </motion.div>
             )}
           </AnimatePresence>
-        </div>
+        </motion.div>
 
         {/* Smart Upload System */}
         <AnimatePresence mode="popLayout">
@@ -520,7 +532,7 @@ export default function VideoStudio() {
           </motion.div>
         )}
 
-      </div>
+      </motion.div>
 
       {/* Overlays */}
       <AnimatePresence>

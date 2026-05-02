@@ -227,12 +227,23 @@ export default function Login() {
         )}
       </AnimatePresence>
 
-      <div className="w-full max-w-sm rounded-[32px] p-8 pb-12 relative overflow-hidden">
+      <motion.div 
+        initial="hidden"
+        animate="visible"
+        variants={{
+          hidden: { opacity: 0 },
+          visible: {
+            opacity: 1,
+            transition: { staggerChildren: 0.1 }
+          }
+        }}
+        className="w-full max-w-sm rounded-[32px] p-8 pb-12 relative overflow-hidden"
+      >
         {/* Decorative blobs */}
         <div className="absolute -top-12 -left-12 w-48 h-48 bg-primary-blue rounded-full blur-[80px] opacity-20 pointer-events-none" />
         <div className="absolute -bottom-12 -right-12 w-48 h-48 bg-secondary-violet rounded-full blur-[80px] opacity-20 pointer-events-none" />
 
-        <div className="relative z-10 flex flex-col items-center mb-8">
+        <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 300, damping: 24 } } }} className="relative z-10 flex flex-col items-center mb-8">
           <div className="w-16 h-16 mb-4 rounded-2xl bg-gradient-to-br from-primary-blue to-secondary-violet p-[1.5px]">
             <div className="w-full h-full bg-surface rounded-[15px] flex items-center justify-center">
               <Sparkles className="w-8 h-8 text-primary-blue" />
@@ -247,9 +258,9 @@ export default function Login() {
           <p className="text-text-secondary text-sm mt-1">
             Unlock your creativity
           </p>
-        </div>
+        </motion.div>
 
-        <div className="relative z-10 bg-surface/50 p-1 rounded-2xl mb-8 flex border border-inverted/5 backdrop-blur-md">
+        <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 300, damping: 24 } } }} className="relative z-10 bg-surface/50 p-1 rounded-2xl mb-8 flex border border-inverted/5 backdrop-blur-md">
           <button
             onClick={() => {
               setIsLogin(true);
@@ -268,9 +279,10 @@ export default function Login() {
           >
             Sign Up
           </button>
-        </div>
+        </motion.div>
 
-        <form
+        <motion.form
+          variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 300, damping: 24 } } }}
           onSubmit={handleSubmit}
           className="relative z-10 flex flex-col gap-4"
         >
@@ -385,7 +397,7 @@ export default function Login() {
               "Create Account"
             )}
           </motion.button>
-        </form>
+        </motion.form>
 
         <div className="relative z-10 mt-8 mb-4">
           <div className="absolute inset-0 flex items-center">
@@ -398,7 +410,7 @@ export default function Login() {
           </div>
         </div>
 
-        <div className="relative z-10 flex gap-4">
+        <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 300, damping: 24 } } }} className="relative z-10 flex gap-4">
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -427,8 +439,8 @@ export default function Login() {
               />
             </svg>
           </motion.button>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </div>
   );
 }

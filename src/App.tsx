@@ -64,16 +64,18 @@ function AppContent() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.3 }}
-          className="min-h-screen bg-base text-text-primary flex flex-col relative w-full"
+          className="min-h-screen bg-base text-text-primary flex flex-col relative w-full overflow-hidden"
         >
-          <Routes>
-            <Route path="/login" element={!user ? <Login /> : <Navigate to="/image" replace />} />
-            <Route path="/image" element={user ? <ImageStudio /> : <Navigate to="/login" replace />} />
-            <Route path="/video" element={user ? <VideoStudio /> : <Navigate to="/login" replace />} />
-            <Route path="/voice" element={user ? <VoiceStudio /> : <Navigate to="/login" replace />} />
-            <Route path="/profile" element={user ? <Profile /> : <Navigate to="/login" replace />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
+          <AnimatePresence mode="wait">
+            <Routes location={location} key={location.pathname}>
+              <Route path="/login" element={!user ? <motion.div initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.98 }} transition={{ duration: 0.2 }} className="flex-1 flex flex-col min-h-0 w-full"><Login /></motion.div> : <Navigate to="/image" replace />} />
+              <Route path="/image" element={user ? <motion.div initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.98 }} transition={{ duration: 0.2 }} className="flex-1 flex flex-col min-h-0 w-full"><ImageStudio /></motion.div> : <Navigate to="/login" replace />} />
+              <Route path="/video" element={user ? <motion.div initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.98 }} transition={{ duration: 0.2 }} className="flex-1 flex flex-col min-h-0 w-full"><VideoStudio /></motion.div> : <Navigate to="/login" replace />} />
+              <Route path="/voice" element={user ? <motion.div initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.98 }} transition={{ duration: 0.2 }} className="flex-1 flex flex-col min-h-0 w-full"><VoiceStudio /></motion.div> : <Navigate to="/login" replace />} />
+              <Route path="/profile" element={user ? <motion.div initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.98 }} transition={{ duration: 0.2 }} className="flex-1 flex flex-col min-h-0 w-full"><Profile /></motion.div> : <Navigate to="/login" replace />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </AnimatePresence>
           {!isAuthRoute && <BottomNav />}
         </motion.div>
       )}

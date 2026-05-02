@@ -20,13 +20,30 @@ export default function Profile() {
 
   // Load local storage data
   useEffect(() => {
-    // In a real app we'd load this from other studios writing to localStorage
-    const savedLibrary = localStorage.getItem('krixen_library');
-    if (savedLibrary) {
-      try {
-        setLibraryData(JSON.parse(savedLibrary));
-      } catch (e) {}
-    }
+    const loadData = () => {
+      const savedLibrary = localStorage.getItem('krixen_library');
+      if (savedLibrary) {
+        try {
+          const parsed = JSON.parse(savedLibrary);
+          setLibraryData({
+            images: Array.isArray(parsed.images) ? parsed.images : [],
+            videos: Array.isArray(parsed.videos) ? parsed.videos : [],
+            voice: Array.isArray(parsed.voice) ? parsed.voice : []
+          });
+        } catch (e) {
+          console.error("Failed to parse library", e);
+        }
+      }
+    };
+
+    loadData();
+    window.addEventListener('krixen_library_updated', loadData);
+    window.addEventListener('storage', loadData);
+    
+    return () => {
+      window.removeEventListener('krixen_library_updated', loadData);
+      window.removeEventListener('storage', loadData);
+    };
   }, []);
 
   const openEditModal = () => {
@@ -72,10 +89,24 @@ export default function Profile() {
         <h1 className="text-2xl font-bold tracking-tight text-inverted">Profile</h1>
       </header>
 
-      <div className="max-w-4xl mx-auto w-full p-6 space-y-8">
+      <motion.div 
+        className="max-w-4xl mx-auto w-full p-6 space-y-8"
+        initial="hidden"
+        animate="visible"
+        variants={{
+          hidden: { opacity: 0 },
+          visible: {
+            opacity: 1,
+            transition: { staggerChildren: 0.1 }
+          }
+        }}
+      >
         
         {/* User Card */}
-        <section className="bg-surface border border-inverted/5 p-6 rounded-[32px] flex flex-col sm:flex-row sm:items-center justify-between gap-6 shadow-xl relative overflow-hidden">
+        <motion.section 
+          variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 300, damping: 24 } } }}
+          className="bg-surface border border-inverted/5 p-6 rounded-[32px] flex flex-col sm:flex-row sm:items-center justify-between gap-6 shadow-xl relative overflow-hidden"
+        >
           <div className="flex items-center gap-4 sm:gap-6 min-w-0">
             <div className="relative group flex-shrink-0 cursor-pointer" onClick={openEditModal}>
               <div className="absolute -top-1 -right-1 bg-gradient-to-r from-primary-blue to-secondary-violet text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-[0_0_10px_rgba(79,142,247,0.3)] border-2 border-surface z-10 uppercase tracking-wider">
@@ -102,113 +133,43 @@ export default function Profile() {
           >
             Edit Profile
           </button>
-        </section>
+        </motion.section>
 
         {/* Stats */}
-        <section className="grid grid-cols-3 gap-4">
-          <div className="bg-surface border border-inverted/5 p-5 rounded-[24px] flex flex-col gap-2">
-            <div className="flex items-center gap-2 text-text-secondary">
-              <ImageIcon className="w-4 h-4" />
-              <span className="text-xs font-semibold uppercase tracking-wider">Images Generated</span>
+        <motion.section 
+          variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 300, damping: 24 } } }}
+          className="grid grid-cols-3 gap-3 sm:gap-4"
+        >
+          <div className="bg-surface border border-inverted/5 p-4 sm:p-5 rounded-[20px] sm:rounded-[24px] flex flex-col gap-2 overflow-hidden">
+            <div className="flex items-center gap-1.5 sm:gap-2 text-text-secondary min-w-0">
+              <ImageIcon className="w-4 h-4 flex-shrink-0" />
+              <span className="text-[9px] sm:text-xs font-semibold uppercase tracking-wide sm:tracking-wider truncate">Images</span>
             </div>
-            <span className="text-3xl font-bold text-inverted">{stats.images}</span>
+            <span className="text-2xl sm:text-3xl font-bold text-inverted truncate">{stats.images}</span>
           </div>
-          <div className="bg-surface border border-inverted/5 p-5 rounded-[24px] flex flex-col gap-2">
-            <div className="flex items-center gap-2 text-text-secondary">
-              <Clapperboard className="w-4 h-4" />
-              <span className="text-xs font-semibold uppercase tracking-wider">Videos Generated</span>
+          <div className="bg-surface border border-inverted/5 p-4 sm:p-5 rounded-[20px] sm:rounded-[24px] flex flex-col gap-2 overflow-hidden">
+            <div className="flex items-center gap-1.5 sm:gap-2 text-text-secondary min-w-0">
+              <Clapperboard className="w-4 h-4 flex-shrink-0" />
+              <span className="text-[9px] sm:text-xs font-semibold uppercase tracking-wide sm:tracking-wider truncate">Videos</span>
             </div>
-            <span className="text-3xl font-bold text-inverted">{stats.videos}</span>
+            <span className="text-2xl sm:text-3xl font-bold text-inverted truncate">{stats.videos}</span>
           </div>
-          <div className="bg-surface border border-inverted/5 p-5 rounded-[24px] flex flex-col gap-2">
-            <div className="flex items-center gap-2 text-text-secondary">
-              <Mic className="w-4 h-4" />
-              <span className="text-xs font-semibold uppercase tracking-wider">Voice Generated</span>
+          <div className="bg-surface border border-inverted/5 p-4 sm:p-5 rounded-[20px] sm:rounded-[24px] flex flex-col gap-2 overflow-hidden">
+            <div className="flex items-center gap-1.5 sm:gap-2 text-text-secondary min-w-0">
+              <Mic className="w-4 h-4 flex-shrink-0" />
+              <span className="text-[9px] sm:text-xs font-semibold uppercase tracking-wide sm:tracking-wider truncate">Voice</span>
             </div>
-            <span className="text-3xl font-bold text-inverted">{stats.voice}</span>
+            <span className="text-2xl sm:text-3xl font-bold text-inverted truncate">{stats.voice}</span>
           </div>
-        </section>
+        </motion.section>
 
-        {/* Subscription System */}
-        <section className="space-y-4">
-          <h3 className="text-lg font-bold">Subscription Plan</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            
-            {/* Free */}
-            <div className="relative bg-surface border border-primary-blue/30 p-6 rounded-[24px] overflow-hidden flex flex-col gap-4 shadow-[0_0_20px_rgba(79,142,247,0.1)]">
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary-blue to-secondary-violet" />
-              <div className="flex justify-between items-start">
-                <div>
-                  <h4 className="font-bold text-inverted text-lg">Free Plan</h4>
-                  <p className="text-xs text-text-muted mt-1">Access to all basic AI tools</p>
-                </div>
-                <span className="px-2.5 py-1 rounded-lg bg-primary-blue/10 text-primary-blue text-[10px] font-bold uppercase tracking-wider border border-primary-blue/20">
-                  Current
-                </span>
-              </div>
-              <div className="mt-auto pt-4">
-                <button className="w-full py-2.5 rounded-xl bg-inverted/5 text-text-secondary text-sm font-semibold cursor-default">
-                  Active
-                </button>
-              </div>
-            </div>
 
-            {/* Pro */}
-            <div className="bg-surface/50 border border-inverted/5 p-6 rounded-[24px] flex flex-col gap-4 opacity-70">
-              <div className="flex justify-between items-start">
-                <div>
-                  <h4 className="font-bold text-inverted text-lg">Pro Plan</h4>
-                  <p className="text-xs text-text-muted mt-1">Faster generation & limits</p>
-                </div>
-                <span className="px-2.5 py-1 rounded-lg bg-inverted/5 text-text-secondary text-[10px] font-bold uppercase tracking-wider">
-                  Soon
-                </span>
-              </div>
-              <div className="mt-auto pt-4">
-                <button disabled className="w-full py-2.5 rounded-xl bg-inverted/5 text-text-muted text-sm font-semibold cursor-not-allowed">
-                  Coming Soon
-                </button>
-              </div>
-            </div>
-
-            {/* Premium */}
-            <div className="bg-surface/50 border border-inverted/5 p-6 rounded-[24px] flex flex-col gap-4 opacity-70 relative overflow-hidden">
-              <div className="absolute -right-10 -top-10 w-32 h-32 bg-secondary-violet/10 blur-[30px] rounded-full" />
-              <div className="flex justify-between items-start relative z-10">
-                <div>
-                  <h4 className="font-bold text-inverted text-lg">Premium</h4>
-                  <p className="text-xs text-text-muted mt-1">Advanced models & priority</p>
-                </div>
-                <span className="px-2.5 py-1 rounded-lg bg-secondary-violet/10 text-secondary-violet text-[10px] font-bold uppercase tracking-wider border border-secondary-violet/20">
-                  Soon
-                </span>
-              </div>
-              <div className="mt-auto pt-4 relative z-10">
-                <button disabled className="w-full py-2.5 rounded-xl bg-secondary-violet/10 text-secondary-violet/50 text-sm font-semibold cursor-not-allowed">
-                  Coming Soon
-                </button>
-              </div>
-            </div>
-
-          </div>
-          
-          <div className="bg-elevated border border-inverted/5 rounded-[20px] p-5 flex items-start gap-4">
-            <div className="p-2 rounded-xl bg-inverted/5">
-              <Sparkles className="w-5 h-5 text-secondary-violet" />
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-inverted">🚀 Upcoming plans will include:</p>
-              <ul className="text-sm text-text-muted mt-2 space-y-1 list-disc list-inside">
-                <li>Faster generation</li>
-                <li>Priority processing</li>
-                <li>Advanced models</li>
-              </ul>
-            </div>
-          </div>
-        </section>
 
         {/* Account Actions */}
-        <section className="space-y-4">
+        <motion.section 
+          variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 300, damping: 24 } } }}
+          className="space-y-4"
+        >
           <div 
             onClick={handleLogout}
             className="bg-primary-rose/10 hover:bg-primary-rose/20 border border-primary-rose/20 rounded-[32px] p-6 flex items-center justify-between group cursor-pointer transition-all shadow-sm"
@@ -221,10 +182,13 @@ export default function Profile() {
               <LogOut className="w-6 h-6 ml-[-2px]" />
             </div>
           </div>
-        </section>
+        </motion.section>
 
         {/* User Library */}
-        <section className="space-y-6 pt-4 border-t border-inverted/5">
+        <motion.section 
+          variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 300, damping: 24 } } }}
+          className="space-y-6 pt-4 border-t border-inverted/5"
+        >
           <div className="flex items-center justify-between">
             <h3 className="text-xl font-bold">Your Library</h3>
           </div>
@@ -316,9 +280,9 @@ export default function Profile() {
               )
             )}
           </div>
-        </section>
+        </motion.section>
 
-      </div>
+      </motion.div>
       
       {/* Edit Profile Modal */}
       <AnimatePresence>
