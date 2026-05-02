@@ -128,7 +128,7 @@ export default function VoiceStudio() {
 
   return (
     <div className="flex-1 flex flex-col max-h-screen overflow-hidden bg-base relative">
-      <header className="flex-shrink-0 flex items-center justify-between p-4 border-b border-white/5 bg-surface/80 backdrop-blur-md z-20">
+      <header className="flex-shrink-0 flex items-center justify-between p-4 border-b border-inverted/5 bg-surface/80 backdrop-blur-md z-20">
         <div className="flex flex-col">
           <h1 className="text-lg font-bold tracking-tight">
             <span className="bg-gradient-to-r from-primary-blue to-secondary-violet bg-clip-text text-transparent">Krixen</span><span className="text-white">AI</span>
@@ -138,7 +138,7 @@ export default function VoiceStudio() {
         <div className="flex gap-2">
           <button 
             onClick={() => setIsSidebarOpen(true)}
-            className="p-2.5 rounded-xl bg-elevated hover:bg-white/10 transition-colors"
+            className="p-2.5 rounded-xl bg-elevated hover:bg-inverted/10 transition-colors"
           >
             <Settings2 className="w-5 h-5 text-text-secondary hover:text-text-primary transition-colors" />
           </button>
@@ -155,7 +155,7 @@ export default function VoiceStudio() {
               onClick={() => setActiveMode(mode.id)}
               className={cn(
                 "flex-shrink-0 whitespace-nowrap py-2.5 px-4 text-xs font-semibold rounded-xl transition-all duration-300 relative snap-start",
-                activeMode === mode.id ? "text-white bg-primary-rose shadow-[0_0_15px_rgba(240,80,110,0.3)] border border-primary-rose/50" : "text-text-secondary bg-surface border border-white/5 hover:border-white/10 hover:text-text-primary"
+                activeMode === mode.id ? "text-white bg-primary-rose shadow-[0_0_15px_rgba(240,80,110,0.3)] border border-primary-rose/50" : "text-text-secondary bg-surface border border-inverted/5 hover:border-inverted/10 hover:text-text-primary"
               )}
             >
               {mode.name}
@@ -204,7 +204,7 @@ export default function VoiceStudio() {
                 value={textPrompt}
                 onChange={e => setTextPrompt(e.target.value.slice(0, 5000))}
                 placeholder="Type or paste the text you want to synthesize..."
-                className="w-full h-40 bg-surface text-text-primary font-mono text-sm leading-relaxed border border-white/10 rounded-[22px] p-4 pr-12 focus:outline-none focus:border-primary-rose/50 focus:ring-1 focus:ring-primary-rose/50 transition-all resize-none shadow-inner"
+                className="w-full h-40 bg-surface text-text-primary font-mono text-sm leading-relaxed border border-inverted/10 rounded-[22px] p-4 pr-12 focus:outline-none focus:border-primary-rose/50 focus:ring-1 focus:ring-primary-rose/50 transition-all resize-none shadow-inner"
               />
               <motion.button
                 whileTap={{ scale: 0.9 }}
@@ -214,11 +214,11 @@ export default function VoiceStudio() {
                 title="Polish Text"
               >
                 {isEnhancing ? (
-                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  <div className="w-4 h-4 border-2 border-inverted/30 border-t-white rounded-full animate-spin" />
                 ) : (
                   <>
-                    <Sparkles className="w-3.5 h-3.5 text-white" />
-                    <span className="text-xs text-white font-bold tracking-wide">Polish</span>
+                    <Sparkles className="w-3.5 h-3.5 text-inverted" />
+                    <span className="text-xs text-inverted font-bold tracking-wide">Polish</span>
                   </>
                 )}
               </motion.button>
@@ -231,14 +231,14 @@ export default function VoiceStudio() {
           <div className="mb-6">
             <div className="text-[14px] font-semibold text-text-primary mb-2 tracking-wide pl-1">Document Input</div>
             {!uploadedDoc ? (
-              <label className="flex flex-col items-center justify-center h-40 w-full border-2 border-dashed border-white/10 rounded-[22px] bg-surface hover:bg-elevated transition-colors cursor-pointer group">
+              <label className="flex flex-col items-center justify-center h-40 w-full border-2 border-dashed border-inverted/10 rounded-[22px] bg-surface hover:bg-elevated transition-colors cursor-pointer group">
                 <FileText className="w-8 h-8 text-text-secondary group-hover:text-primary-rose transition-colors mb-3" />
                 <span className="text-sm font-medium text-text-secondary group-hover:text-text-primary">Upload PDF, TXT, or DOCX</span>
                 <span className="text-[10px] text-text-muted mt-1">Up to 10MB</span>
                 <input type="file" className="hidden" accept=".pdf,.txt,.docx" onChange={handleDocUpload} />
               </label>
             ) : (
-              <div className="relative w-full p-4 rounded-[22px] border border-white/10 bg-surface flex items-center justify-between">
+              <div className="relative w-full p-4 rounded-[22px] border border-inverted/10 bg-surface flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className="p-3 bg-primary-rose/10 rounded-xl">
                     <FileText className="w-6 h-6 text-primary-rose" />
@@ -281,7 +281,7 @@ export default function VoiceStudio() {
                       value={line.text}
                       onChange={(e) => updateDialogueLine(line.id, e.target.value)}
                       placeholder={`Enter speaker ${line.speaker}'s line...`}
-                      className="w-full bg-surface border border-white/5 focus:border-white/20 rounded-xl p-3 pr-10 text-sm focus:outline-none transition-colors"
+                      className="w-full bg-surface border border-inverted/5 focus:border-inverted/20 rounded-xl p-3 pr-10 text-sm focus:outline-none transition-colors"
                     />
                     <button onClick={() => deleteDialogueLine(line.id)} className="absolute right-2 top-2 p-1.5 text-text-muted hover:text-red-400 opacity-50 hover:opacity-100 transition-opacity">
                       <X className="w-3.5 h-3.5" />
@@ -308,9 +308,9 @@ export default function VoiceStudio() {
             className="w-full h-14 rounded-pill relative overflow-hidden bg-gradient-to-r from-primary-rose to-rose-400 shadow-[0_0_20px_rgba(240,80,110,0.2)] disabled:opacity-70 disabled:cursor-not-allowed group transition-shadow hover:shadow-[0_0_30px_rgba(240,80,110,0.3)]"
           >
             {isGenerating && (
-              <div className="absolute inset-0 bg-white/10" style={{ width: `${progress}%`, transition: 'width 0.3s ease' }} />
+              <div className="absolute inset-0 bg-inverted/10" style={{ width: `${progress}%`, transition: 'width 0.3s ease' }} />
             )}
-            <div className="absolute inset-0 flex items-center justify-center font-bold tracking-wide text-white">
+            <div className="absolute inset-0 flex items-center justify-center font-bold tracking-wide text-inverted">
               {isGenerating ? (
                 <span className="flex items-center gap-2">
                   <Mic className="w-5 h-5 animate-pulse" />
@@ -333,7 +333,7 @@ export default function VoiceStudio() {
             className="mt-12"
           >
             <div className="text-sm font-bold tracking-widest uppercase mb-4 text-text-primary px-1">Audio Output</div>
-            <div className="p-6 bg-surface border border-white/10 rounded-[24px] shadow-xl relative overflow-hidden">
+            <div className="p-6 bg-surface border border-inverted/10 rounded-[24px] shadow-xl relative overflow-hidden">
               <div className="absolute -top-12 -right-12 w-32 h-32 bg-primary-rose rounded-full blur-[60px] opacity-10 pointer-events-none" />
               
               <div className="flex flex-col gap-6 relative z-10">
@@ -356,7 +356,7 @@ export default function VoiceStudio() {
                     {isPlaying ? <Pause className="w-5 h-5 fill-current" /> : <Play className="w-5 h-5 fill-current ml-1" />}
                   </button>
                   <div className="flex-1 px-4">
-                    <div className="h-1 bg-white/10 rounded-full w-full relative">
+                    <div className="h-1 bg-inverted/10 rounded-full w-full relative">
                       <div className="absolute left-0 top-0 h-full bg-primary-rose rounded-full w-1/3" />
                       <div className="absolute left-1/3 top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full shadow" />
                     </div>
@@ -364,8 +364,8 @@ export default function VoiceStudio() {
                   <span className="text-xs font-mono text-text-muted">0:45</span>
                 </div>
 
-                <div className="flex gap-2 justify-center mt-2 border-t border-white/5 pt-4">
-                  <button className="flex items-center gap-1.5 px-3 py-1.5 bg-elevated hover:bg-white/10 rounded-lg text-xs font-bold transition-colors">
+                <div className="flex gap-2 justify-center mt-2 border-t border-inverted/5 pt-4">
+                  <button className="flex items-center gap-1.5 px-3 py-1.5 bg-elevated hover:bg-inverted/10 rounded-lg text-xs font-bold transition-colors">
                     <RefreshCcw className="w-3.5 h-3.5" /> Replay
                   </button>
                   <button className="flex items-center gap-1.5 px-3 py-1.5 bg-primary-rose/10 hover:bg-primary-rose/20 text-primary-rose rounded-lg text-xs font-bold transition-colors">
@@ -401,12 +401,12 @@ export default function VoiceStudio() {
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="fixed top-0 right-0 bottom-0 w-[85%] max-w-[360px] bg-surface/95 border-l border-white/5 backdrop-blur-2xl z-[70] overflow-y-auto custom-scrollbar flex flex-col shadow-2xl"
+            className="fixed top-0 right-0 bottom-0 w-[85%] max-w-[360px] bg-surface/95 border-l border-inverted/5 backdrop-blur-2xl z-[70] overflow-y-auto custom-scrollbar flex flex-col shadow-2xl"
           >
             <div className="flex flex-col h-full">
-              <div className="sticky top-0 bg-surface/80 backdrop-blur-lg px-6 py-5 border-b border-white/5 flex items-center justify-between z-10 w-full mb-6 relative">
+              <div className="sticky top-0 bg-surface/80 backdrop-blur-lg px-6 py-5 border-b border-inverted/5 flex items-center justify-between z-10 w-full mb-6 relative">
                 <h2 className="text-lg font-bold tracking-tight">Voice Settings</h2>
-                <button onClick={() => setIsSidebarOpen(false)} className="p-2 rounded-full hover:bg-white/10 transition-colors">
+                <button onClick={() => setIsSidebarOpen(false)} className="p-2 rounded-full hover:bg-inverted/10 transition-colors">
                   <X className="w-5 h-5 text-text-secondary" />
                 </button>
               </div>
@@ -424,14 +424,14 @@ export default function VoiceStudio() {
                           onClick={() => setSelectedVoice(voice)}
                           className={cn(
                             "flex flex-col items-center gap-2 p-3 text-center transition-all duration-300 border rounded-2xl relative overflow-hidden group",
-                            selectedVoice.id === voice.id ? "bg-gradient-to-br from-primary-rose/20 to-surface border-primary-rose shadow-[0_0_15px_rgba(240,80,110,0.15)]" : "bg-surface border-white/5 hover:border-white/20"
+                            selectedVoice.id === voice.id ? "bg-gradient-to-br from-primary-rose/20 to-surface border-primary-rose shadow-[0_0_15px_rgba(240,80,110,0.15)]" : "bg-surface border-inverted/5 hover:border-inverted/20"
                           )}
                         >
                           <div className="w-10 h-10 rounded-full bg-elevated flex items-center justify-center shrink-0 mb-1">
                             <span className="text-sm font-bold text-primary-rose">{voice.name[0]}</span>
                           </div>
                           <div className="flex flex-col">
-                            <span className={cn("font-semibold text-xs", selectedVoice.id === voice.id ? "text-white" : "text-text-primary")}>
+                            <span className={cn("font-semibold text-xs", selectedVoice.id === voice.id ? "text-inverted" : "text-text-primary")}>
                               {voice.name}
                             </span>
                             <span className="text-[9px] text-text-secondary relative z-10 leading-tight mt-0.5 max-w-[80px] truncate">
@@ -454,7 +454,7 @@ export default function VoiceStudio() {
                         onClick={() => setSelectedEmotion(emotion)}
                         className={cn(
                           "px-3 py-1.5 rounded-full text-xs font-medium border transition-colors",
-                          selectedEmotion === emotion ? "bg-white/10 border-white/20 text-white" : "border-white/5 text-text-muted hover:bg-white/5"
+                          selectedEmotion === emotion ? "bg-inverted/10 border-inverted/20 text-inverted" : "border-inverted/5 text-text-muted hover:bg-inverted/5"
                         )}
                       >
                         {emotion}
@@ -472,7 +472,7 @@ export default function VoiceStudio() {
                   <input 
                     type="range" min="0.5" max="2" step="0.1" 
                     value={speed} onChange={(e) => setSpeed(parseFloat(e.target.value))}
-                    className="w-full accent-primary-rose h-1.5 bg-white/10 rounded-full outline-none"
+                    className="w-full accent-primary-rose h-1.5 bg-inverted/10 rounded-full outline-none"
                   />
                   <div className="flex justify-between text-[10px] text-text-muted mt-2">
                     <span>Slower</span>
@@ -490,7 +490,7 @@ export default function VoiceStudio() {
                         onClick={() => setFormat(f)}
                         className={cn(
                           "py-2.5 rounded-xl text-xs font-bold transition-all border",
-                          format === f ? "bg-primary-rose/20 border-primary-rose text-primary-rose" : "bg-elevated border-white/5 text-text-muted hover:text-text-primary hover:border-white/20"
+                          format === f ? "bg-primary-rose/20 border-primary-rose text-primary-rose" : "bg-elevated border-inverted/5 text-text-muted hover:text-text-primary hover:border-inverted/20"
                         )}
                       >
                         {f}

@@ -15,15 +15,14 @@
   --color-text-secondary: var(--theme-text-secondary, #8B92A5);
   --color-text-muted: var(--theme-text-muted, #4A5168);
 
+  --color-inverted: var(--theme-inverted, #FFFFFF);
+
   --radius-card: 22px;
   --radius-input: 16px;
   --radius-pill: 100px;
 
-  --font-ui: "Plus Jakarta Sans", sans-serif;
-  --font-mono: "JetBrains Mono", monospace;
-  
-  --color-background: var(--color-base);
-  --color-foreground: var(--color-text-primary);
+  --font-ui: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 }
 
 @layer base {
@@ -34,6 +33,7 @@
     --theme-text-primary: #0F1117;
     --theme-text-secondary: #475569;
     --theme-text-muted: #94A3B8;
+    --theme-inverted: #000000;
   }
 
   body {

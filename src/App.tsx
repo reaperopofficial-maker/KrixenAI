@@ -85,13 +85,17 @@ export default function App() {
   return (
     <BrowserRouter>
       <AppContent />
-      <Toaster position="top-center" toastOptions={{ 
-        style: {
-          background: '#161A24',
-          color: '#F0F2F8',
-          borderRadius: '16px',
-        }
-      }} />
+      <Toaster 
+        position="bottom-center" 
+        containerStyle={{ bottom: 100 }}
+        toastOptions={{ 
+          style: {
+            background: '#161A24',
+            color: '#F0F2F8',
+            borderRadius: '16px',
+          }
+        }} 
+      />
     </BrowserRouter>
   );
 }

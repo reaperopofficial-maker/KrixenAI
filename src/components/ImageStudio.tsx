@@ -261,7 +261,7 @@ export default function ImageStudio() {
   return (
     <div className="flex-1 flex flex-col max-h-screen overflow-hidden bg-base relative">
       {/* Header */}
-      <header className="flex-shrink-0 flex items-center justify-between p-4 border-b border-white/5 bg-surface/80 backdrop-blur-md z-20">
+      <header className="flex-shrink-0 flex items-center justify-between p-4 border-b border-inverted/5 bg-surface/80 backdrop-blur-md z-20">
         <div className="flex flex-col">
           <h1 className="text-lg font-bold tracking-tight">
             <span className="bg-gradient-to-r from-primary-blue to-secondary-violet bg-clip-text text-transparent">Krixen</span><span className="text-white">AI</span>
@@ -271,14 +271,14 @@ export default function ImageStudio() {
         <div className="flex gap-2">
           <button 
             onClick={() => setIsHistoryOpen(true)}
-            className="p-2.5 rounded-xl bg-elevated hover:bg-white/10 transition-colors relative"
+            className="p-2.5 rounded-xl bg-elevated hover:bg-inverted/10 transition-colors relative"
           >
             <History className="w-5 h-5 text-text-secondary hover:text-text-primary transition-colors" />
             {history.length > 0 && <span className="absolute top-2 right-2 w-2 h-2 bg-primary-blue rounded-full"></span>}
           </button>
           <button 
             onClick={() => setIsSidebarOpen(true)}
-            className="p-2.5 rounded-xl bg-elevated hover:bg-white/10 transition-colors"
+            className="p-2.5 rounded-xl bg-elevated hover:bg-inverted/10 transition-colors"
           >
             <Settings2 className="w-5 h-5 text-text-secondary hover:text-text-primary transition-colors" />
           </button>
@@ -293,7 +293,7 @@ export default function ImageStudio() {
           <div className="text-[14px] font-semibold text-text-primary mb-2 tracking-wide pl-1">Model</div>
           <button 
             onClick={() => setModelDropdownOpen(!modelDropdownOpen)}
-            className="w-full flex items-center justify-between bg-transparent border border-white/10 rounded-xl p-3 hover:border-white/20 transition-colors"
+            className="w-full flex items-center justify-between bg-transparent border border-inverted/10 rounded-xl p-3 hover:border-inverted/20 transition-colors"
           >
             <div className="flex items-center gap-2">
               <Cpu className="w-5 h-5 text-text-primary" strokeWidth={1.5} />
@@ -308,9 +308,9 @@ export default function ImageStudio() {
                 initial={{ opacity: 0, y: -5 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -5 }}
-                className="absolute top-[72px] left-0 right-0 bg-[#121318] border border-white/10 rounded-[14px] shadow-2xl overflow-hidden z-30"
+                className="absolute top-[72px] left-0 right-0 bg-[#121318] border border-inverted/10 rounded-[14px] shadow-2xl overflow-hidden z-30"
               >
-                <div className="border-b border-white/5 relative">
+                <div className="border-b border-inverted/5 relative">
                   <input 
                     type="text"
                     placeholder="Search..."
@@ -325,8 +325,8 @@ export default function ImageStudio() {
                       key={model.id}
                       onClick={() => { setSelectedModel(model); setModelDropdownOpen(false); setSearchModelQuery(''); }}
                       className={cn(
-                        "w-full flex items-center justify-between p-2.5 rounded-lg text-left transition-colors hover:bg-white/5",
-                        selectedModel.id === model.id && "bg-white/5"
+                        "w-full flex items-center justify-between p-2.5 rounded-lg text-left transition-colors hover:bg-inverted/5",
+                        selectedModel.id === model.id && "bg-inverted/5"
                       )}
                     >
                       <div className="flex items-center gap-3">
@@ -345,7 +345,7 @@ export default function ImageStudio() {
         </div>
 
         {/* Mode Selector */}
-        <div className="flex gap-2 p-1 bg-surface border border-white/5 rounded-2xl mb-6">
+        <div className="flex gap-2 p-1 bg-surface border border-inverted/5 rounded-2xl mb-6">
           {MODES.map(mode => (
             <button
               key={mode.id}
@@ -400,18 +400,18 @@ export default function ImageStudio() {
             >
               <div className="text-xs font-semibold text-text-muted mb-2 uppercase tracking-widest pl-1">Reference Image</div>
               {!uploadedImage ? (
-                <label className="flex flex-col items-center justify-center h-32 w-full border-2 border-dashed border-white/10 rounded-[22px] bg-surface hover:bg-elevated transition-colors cursor-pointer group">
-                  <div className="p-3 bg-white/5 rounded-full mb-3 group-hover:bg-primary-blue/20 transition-colors">
+                <label className="flex flex-col items-center justify-center h-32 w-full border-2 border-dashed border-inverted/10 rounded-[22px] bg-surface hover:bg-elevated transition-colors cursor-pointer group">
+                  <div className="p-3 bg-inverted/5 rounded-full mb-3 group-hover:bg-primary-blue/20 transition-colors">
                     <Upload className="w-5 h-5 text-text-secondary group-hover:text-primary-blue transition-colors" />
                   </div>
                   <span className="text-sm font-medium text-text-secondary group-hover:text-text-primary transition-colors">Tap or drag image here</span>
                   <input type="file" className="hidden" accept="image/*" onChange={handleImageUpload} />
                 </label>
               ) : (
-                <div className="relative w-full h-32 rounded-[22px] overflow-hidden group border border-white/10">
+                <div className="relative w-full h-32 rounded-[22px] overflow-hidden group border border-inverted/10">
                   <img src={uploadedImage} alt="Reference" className="w-full h-full object-cover" />
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm">
-                    <label className="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-pill backdrop-blur-md cursor-pointer text-sm font-medium transition-colors">
+                    <label className="px-4 py-2 bg-inverted/10 hover:bg-inverted/20 rounded-pill backdrop-blur-md cursor-pointer text-sm font-medium transition-colors">
                       Change Image
                       <input type="file" className="hidden" accept="image/*" onChange={handleImageUpload} />
                     </label>
@@ -439,7 +439,7 @@ export default function ImageStudio() {
               value={prompt}
               onChange={e => setPrompt(e.target.value.slice(0, 1000))}
               placeholder="A cinematic shot of a neon cyberpunk city during rain, reflections, masterpiece..."
-              className="w-full h-32 bg-surface text-text-primary font-mono text-sm leading-relaxed border border-white/10 rounded-[22px] p-4 pr-12 focus:outline-none focus:border-primary-blue/50 focus:ring-1 focus:ring-primary-blue/50 transition-all resize-none shadow-inner"
+              className="w-full h-32 bg-surface text-text-primary font-mono text-sm leading-relaxed border border-inverted/10 rounded-[22px] p-4 pr-12 focus:outline-none focus:border-primary-blue/50 focus:ring-1 focus:ring-primary-blue/50 transition-all resize-none shadow-inner"
             />
             {/* Enhance Button */}
             <motion.button
@@ -450,9 +450,9 @@ export default function ImageStudio() {
               title="Enhance Prompt"
             >
               {isEnhancing ? (
-                <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                <div className="w-4 h-4 border-2 border-inverted/30 border-t-white rounded-full animate-spin" />
               ) : (
-                <Sparkles className="w-4 h-4 text-white" />
+                <Sparkles className="w-4 h-4 text-inverted" />
               )}
             </motion.button>
           </div>
@@ -473,7 +473,7 @@ export default function ImageStudio() {
                     <button onClick={() => setEnhancedPrompt('')} className="text-xs text-text-muted hover:text-red-400">Cancel</button>
                     <button 
                       onClick={() => { setPrompt(enhancedPrompt); setEnhancedPrompt(''); }} 
-                      className="text-xs text-primary-blue hover:text-white font-medium"
+                      className="text-xs text-primary-blue hover:text-inverted font-medium"
                     >
                       Use This
                     </button>
@@ -506,7 +506,7 @@ export default function ImageStudio() {
                   placeholder="What to exclude (e.g. blurry, deformed, text, ugly, watermarks...)"
                   value={negativePrompt}
                   onChange={(e) => setNegativePrompt(e.target.value)}
-                  className="w-full h-20 bg-surface/50 text-text-primary text-xs leading-relaxed border border-white/10 rounded-2xl p-3 focus:outline-none focus:border-red-500/50 focus:ring-1 focus:ring-red-500/50 transition-all resize-none shadow-inner"
+                  className="w-full h-20 bg-surface/50 text-text-primary text-xs leading-relaxed border border-inverted/10 rounded-2xl p-3 focus:outline-none focus:border-red-500/50 focus:ring-1 focus:ring-red-500/50 transition-all resize-none shadow-inner"
                 />
               </motion.div>
             )}
@@ -522,9 +522,9 @@ export default function ImageStudio() {
           className="w-full h-14 rounded-pill relative overflow-hidden bg-gradient-to-r from-primary-blue to-secondary-violet shadow-[0_0_20px_rgba(79,142,247,0.2)] disabled:opacity-70 disabled:cursor-not-allowed group transition-shadow hover:shadow-[0_0_30px_rgba(79,142,247,0.3)]"
         >
           {isGenerating && (
-            <div className="absolute inset-0 bg-white/10" style={{ width: `${progress}%`, transition: 'width 0.3s ease' }} />
+            <div className="absolute inset-0 bg-inverted/10" style={{ width: `${progress}%`, transition: 'width 0.3s ease' }} />
           )}
-          <div className="absolute inset-0 flex items-center justify-center font-bold tracking-wide text-white">
+          <div className="absolute inset-0 flex items-center justify-center font-bold tracking-wide text-inverted">
             {isGenerating ? (
               <span className="flex items-center gap-2">
                 <Sparkles className="w-5 h-5 animate-pulse" />
@@ -557,7 +557,7 @@ export default function ImageStudio() {
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: idx * 0.1 }}
-                  className="relative group rounded-[22px] overflow-hidden aspect-square border border-white/10 bg-surface shadow-xl"
+                  className="relative group rounded-[22px] overflow-hidden aspect-square border border-inverted/10 bg-surface shadow-xl"
                 >
                   <img src={img} alt="Generated result" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                   
@@ -566,17 +566,17 @@ export default function ImageStudio() {
                     <div className="flex justify-end">
                       <button 
                         onClick={() => setIsFullscreen(img)}
-                        className="p-2 bg-black/40 hover:bg-black/60 rounded-full backdrop-blur-md text-white transition-colors"
+                        className="p-2 bg-black/40 hover:bg-black/60 rounded-full backdrop-blur-md text-inverted transition-colors"
                       >
                         <Maximize2 className="w-4 h-4" />
                       </button>
                     </div>
                     
                     <div className="flex justify-end gap-2">
-                      <button className="p-2 bg-elevated hover:bg-primary-blue rounded-xl backdrop-blur-md text-white transition-colors">
+                    <button className="p-2 bg-elevated hover:bg-primary-blue hover:text-white rounded-xl backdrop-blur-md text-inverted transition-colors">
                         <Heart className="w-4 h-4" />
                       </button>
-                      <button className="p-2 bg-elevated hover:bg-success-green rounded-xl backdrop-blur-md text-white transition-colors">
+                      <button className="p-2 bg-elevated hover:bg-success-green hover:text-white rounded-xl backdrop-blur-md text-inverted transition-colors">
                         <Download className="w-4 h-4" />
                       </button>
                     </div>
@@ -611,14 +611,14 @@ export default function ImageStudio() {
             animate={{ x: 0 }}
             exit={{ x: '-100%' }}
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="fixed top-0 left-0 bottom-0 w-[85%] max-w-[360px] bg-surface/95 border-r border-white/5 backdrop-blur-2xl z-[70] overflow-y-auto custom-scrollbar flex flex-col shadow-2xl"
+            className="fixed top-0 left-0 bottom-0 w-[85%] max-w-[360px] bg-surface/95 border-r border-inverted/5 backdrop-blur-2xl z-[70] overflow-y-auto custom-scrollbar flex flex-col shadow-2xl"
           >
             <div className="flex flex-col h-full">
-              <div className="sticky top-0 bg-surface/80 backdrop-blur-lg px-6 py-5 border-b border-white/5 flex items-center justify-between z-10 w-full mb-4 relative">
+              <div className="sticky top-0 bg-surface/80 backdrop-blur-lg px-6 py-5 border-b border-inverted/5 flex items-center justify-between z-10 w-full mb-4 relative">
                 <h2 className="text-lg font-bold tracking-tight flex items-center gap-2"><History className="w-5 h-5"/> History</h2>
                 <button 
                   onClick={() => setIsHistoryOpen(false)}
-                  className="p-2 rounded-full hover:bg-white/10 transition-colors"
+                  className="p-2 rounded-full hover:bg-inverted/10 transition-colors"
                 >
                   <X className="w-5 h-5 text-text-secondary" />
                 </button>
@@ -633,11 +633,11 @@ export default function ImageStudio() {
                   </div>
                 ) : (
                   history.map((item) => (
-                    <div key={item.id} className="bg-elevated border border-white/5 rounded-[20px] overflow-hidden flex flex-col">
+                    <div key={item.id} className="bg-elevated border border-inverted/5 rounded-[20px] overflow-hidden flex flex-col">
                       <div className="relative aspect-video bg-black/50 overflow-hidden">
                         <img src={item.images[0]} alt="History thumbnail" className="w-full h-full object-cover opacity-90" />
                         {item.images.length > 1 && (
-                          <div className="absolute top-2 right-2 px-2 py-1 bg-black/60 backdrop-blur-md rounded-lg text-[10px] font-bold text-white">
+                          <div className="absolute top-2 right-2 px-2 py-1 bg-black/60 backdrop-blur-md rounded-lg text-[10px] font-bold text-inverted">
                             +{item.images.length - 1} MORE
                           </div>
                         )}
@@ -645,14 +645,14 @@ export default function ImageStudio() {
                       <div className="p-4 flex flex-col gap-3">
                         <p className="text-xs text-text-primary line-clamp-3 font-mono leading-relaxed">{item.prompt}</p>
                         <div className="flex flex-wrap gap-2">
-                          <span className="text-[10px] px-2 py-1 bg-white/5 rounded-full text-text-secondary border border-white/10">
+                          <span className="text-[10px] px-2 py-1 bg-inverted/5 rounded-full text-text-secondary border border-inverted/10">
                             {item.model.name}
                           </span>
-                          <span className="text-[10px] px-2 py-1 bg-white/5 rounded-full text-text-secondary border border-white/10">
+                          <span className="text-[10px] px-2 py-1 bg-inverted/5 rounded-full text-text-secondary border border-inverted/10">
                             {item.aspectRatio}
                           </span>
                         </div>
-                        <div className="w-full h-[1px] bg-white/5 mt-1" />
+                        <div className="w-full h-[1px] bg-inverted/5 mt-1" />
                         <button 
                           onClick={() => loadHistoryItem(item)}
                           className="flex items-center justify-center gap-2 w-full py-2.5 bg-primary-blue/10 hover:bg-primary-blue/20 text-primary-blue text-xs font-bold rounded-xl transition-colors"
@@ -677,14 +677,14 @@ export default function ImageStudio() {
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="fixed top-0 right-0 bottom-0 w-[85%] max-w-[360px] bg-surface/95 border-l border-white/5 backdrop-blur-2xl z-[70] overflow-y-auto custom-scrollbar flex flex-col shadow-2xl"
+            className="fixed top-0 right-0 bottom-0 w-[85%] max-w-[360px] bg-surface/95 border-l border-inverted/5 backdrop-blur-2xl z-[70] overflow-y-auto custom-scrollbar flex flex-col shadow-2xl"
           >
             <div className="flex flex-col h-full">
-              <div className="sticky top-0 bg-surface/80 backdrop-blur-lg px-6 py-5 border-b border-white/5 flex items-center justify-between z-10 w-full mb-6 relative">
+              <div className="sticky top-0 bg-surface/80 backdrop-blur-lg px-6 py-5 border-b border-inverted/5 flex items-center justify-between z-10 w-full mb-6 relative">
                 <h2 className="text-lg font-bold tracking-tight">Settings</h2>
                 <button 
                   onClick={() => setIsSidebarOpen(false)}
-                  className="p-2 rounded-full hover:bg-white/10 transition-colors"
+                  className="p-2 rounded-full hover:bg-inverted/10 transition-colors"
                 >
                   <X className="w-5 h-5 text-text-secondary" />
                 </button>
@@ -701,7 +701,7 @@ export default function ImageStudio() {
                   <input 
                     type="range" min="1" max="4" step="1" 
                     value={batchCount} onChange={(e) => setBatchCount(parseInt(e.target.value))}
-                    className="w-full accent-primary-blue h-1 bg-white/10 rounded-full outline-none"
+                    className="w-full accent-primary-blue h-1 bg-inverted/10 rounded-full outline-none"
                   />
                   <div className="flex justify-between text-[10px] text-text-muted mt-2">
                     <span>Fast</span>
@@ -719,7 +719,7 @@ export default function ImageStudio() {
                         onClick={() => setAspectRatio(ar.id)}
                         className={cn(
                           "aspect-square flex flex-col items-center justify-center gap-1 rounded-2xl border transition-all duration-300 bg-elevated/50",
-                          aspectRatio === ar.id ? "border-primary-blue text-primary-blue shadow-[0_0_15px_rgba(79,142,247,0.3)]" : "border-white/5 text-text-muted hover:border-white/20 hover:text-text-primary"
+                          aspectRatio === ar.id ? "border-primary-blue text-primary-blue shadow-[0_0_15px_rgba(79,142,247,0.3)]" : "border-inverted/5 text-text-muted hover:border-inverted/20 hover:text-text-primary"
                         )}
                       >
                         <span className="text-lg leading-none">{ar.icon}</span>
@@ -744,7 +744,7 @@ export default function ImageStudio() {
                       >
                         <img src={style.img} alt={style.name} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-2">
-                          <span className="text-[10px] font-bold text-white uppercase tracking-wider">{style.name}</span>
+                          <span className="text-[10px] font-bold text-inverted uppercase tracking-wider">{style.name}</span>
                         </div>
                         {selectedStyle === style.id && <div className="absolute inset-0 bg-secondary-violet/20" />}
                       </button>
@@ -762,7 +762,7 @@ export default function ImageStudio() {
                         onClick={() => toggleMood(mood)}
                         className={cn(
                           "px-3 py-1.5 rounded-full text-xs font-medium border transition-colors",
-                          selectedMoods.includes(mood) ? "bg-white/10 border-white/20 text-white" : "border-white/5 text-text-muted hover:bg-white/5"
+                          selectedMoods.includes(mood) ? "bg-inverted/10 border-inverted/20 text-inverted" : "border-inverted/5 text-text-muted hover:bg-inverted/5"
                         )}
                       >
                         {mood}
@@ -781,7 +781,7 @@ export default function ImageStudio() {
                         onClick={() => toggleLighting(light)}
                         className={cn(
                           "px-3 py-1.5 rounded-full text-xs font-medium border transition-colors",
-                          selectedLighting.includes(light) ? "bg-white/10 border-white/20 text-white" : "border-white/5 text-text-muted hover:bg-white/5"
+                          selectedLighting.includes(light) ? "bg-inverted/10 border-inverted/20 text-inverted" : "border-inverted/5 text-text-muted hover:bg-inverted/5"
                         )}
                       >
                         {light}
@@ -790,7 +790,7 @@ export default function ImageStudio() {
                   </div>
                 </div>
 
-                <div className="w-full h-[1px] bg-white/5 my-2" />
+                <div className="w-full h-[1px] bg-inverted/5 my-2" />
 
                 {/* Camera Angle (Collapsible) */}
                 <div>
@@ -816,7 +816,7 @@ export default function ImageStudio() {
                               onClick={() => setSelectedAngle(angle)}
                               className={cn(
                                 "py-2 px-3 rounded-xl text-xs font-medium border text-left transition-colors",
-                                selectedAngle === angle ? "bg-primary-blue/20 border-primary-blue/50 text-white" : "bg-elevated border-white/5 text-text-muted hover:border-white/20 hover:text-white"
+                                selectedAngle === angle ? "bg-primary-blue/20 border-primary-blue/50 text-inverted" : "bg-elevated border-inverted/5 text-text-muted hover:border-inverted/20 hover:text-inverted"
                               )}
                             >
                               {angle}
@@ -846,9 +846,9 @@ export default function ImageStudio() {
             <div className="flex justify-end p-4">
               <button 
                 onClick={() => setIsFullscreen(null)}
-                className="p-3 bg-white/10 hover:bg-white/20 rounded-full transition-colors"
+                className="p-3 bg-inverted/10 hover:bg-inverted/20 rounded-full transition-colors"
               >
-                <X className="w-6 h-6 text-white" />
+                <X className="w-6 h-6 text-inverted" />
               </button>
             </div>
             <div className="flex-1 p-4 flex items-center justify-center min-h-0">

@@ -169,7 +169,7 @@ export default function VideoStudio() {
 
   return (
     <div className="flex-1 flex flex-col max-h-screen overflow-hidden bg-base relative">
-      <header className="flex-shrink-0 flex items-center justify-between p-4 border-b border-white/5 bg-surface/80 backdrop-blur-md z-20">
+      <header className="flex-shrink-0 flex items-center justify-between p-4 border-b border-inverted/5 bg-surface/80 backdrop-blur-md z-20">
         <div className="flex flex-col">
           <h1 className="text-lg font-bold tracking-tight">
             <span className="bg-gradient-to-r from-primary-blue to-secondary-violet bg-clip-text text-transparent">Krixen</span><span className="text-white">AI</span>
@@ -179,14 +179,14 @@ export default function VideoStudio() {
         <div className="flex gap-2">
           <button 
             onClick={() => setIsHistoryOpen(true)}
-            className="p-2.5 rounded-xl bg-elevated hover:bg-white/10 transition-colors relative"
+            className="p-2.5 rounded-xl bg-elevated hover:bg-inverted/10 transition-colors relative"
           >
             <History className="w-5 h-5 text-text-secondary hover:text-text-primary transition-colors" />
             {history.length > 0 && <span className="absolute top-2 right-2 w-2 h-2 bg-secondary-violet rounded-full"></span>}
           </button>
           <button 
             onClick={() => setIsSidebarOpen(true)}
-            className="p-2.5 rounded-xl bg-elevated hover:bg-white/10 transition-colors"
+            className="p-2.5 rounded-xl bg-elevated hover:bg-inverted/10 transition-colors"
           >
             <Settings2 className="w-5 h-5 text-text-secondary hover:text-text-primary transition-colors" />
           </button>
@@ -203,7 +203,7 @@ export default function VideoStudio() {
               onClick={() => { setActiveMode(mode.id); setUploadedImage1(null); setUploadedImage2(null); setUploadedVideo(null); }}
               className={cn(
                 "flex-shrink-0 whitespace-nowrap py-2.5 px-4 text-xs font-semibold rounded-xl transition-all duration-300 relative snap-start",
-                activeMode === mode.id ? "text-white bg-secondary-violet shadow-[0_0_15px_rgba(124,92,246,0.3)] border border-secondary-violet/50" : "text-text-secondary bg-surface border border-white/5 hover:border-white/10 hover:text-text-primary"
+                activeMode === mode.id ? "text-white bg-secondary-violet shadow-[0_0_15px_rgba(124,92,246,0.3)] border border-secondary-violet/50" : "text-text-secondary bg-surface border border-inverted/5 hover:border-inverted/10 hover:text-text-primary"
               )}
             >
               {mode.name}
@@ -249,7 +249,7 @@ export default function VideoStudio() {
           <div className="text-[14px] font-semibold text-text-primary mb-2 tracking-wide pl-1">Video Model</div>
           <button 
             onClick={() => setModelDropdownOpen(!modelDropdownOpen)}
-            className="w-full flex items-center justify-between bg-transparent border border-white/10 rounded-xl p-3 hover:border-white/20 transition-colors"
+            className="w-full flex items-center justify-between bg-transparent border border-inverted/10 rounded-xl p-3 hover:border-inverted/20 transition-colors"
           >
             <div className="flex items-center gap-2">
               <Cpu className="w-5 h-5 text-text-primary" strokeWidth={1.5} />
@@ -266,9 +266,9 @@ export default function VideoStudio() {
                 initial={{ opacity: 0, y: -5 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -5 }}
-                className="absolute top-[72px] left-0 right-0 bg-[#121318] border border-white/10 rounded-[14px] shadow-2xl overflow-hidden z-30"
+                className="absolute top-[72px] left-0 right-0 bg-[#121318] border border-inverted/10 rounded-[14px] shadow-2xl overflow-hidden z-30"
               >
-                <div className="border-b border-white/5 relative">
+                <div className="border-b border-inverted/5 relative">
                   <input 
                     type="text"
                     placeholder="Search..."
@@ -283,8 +283,8 @@ export default function VideoStudio() {
                       key={model.id}
                       onClick={() => { setSelectedModel(model); setModelDropdownOpen(false); setSearchModelQuery(''); }}
                       className={cn(
-                        "w-full flex items-center justify-between p-2.5 rounded-lg text-left transition-colors hover:bg-white/5",
-                        selectedModel.id === model.id && "bg-white/5"
+                        "w-full flex items-center justify-between p-2.5 rounded-lg text-left transition-colors hover:bg-inverted/5",
+                        selectedModel.id === model.id && "bg-inverted/5"
                       )}
                     >
                       <div className="flex items-center gap-3">
@@ -319,15 +319,15 @@ export default function VideoStudio() {
                   <div className="flex flex-col">
                     <span className="text-[10px] uppercase font-bold text-text-muted mb-1 ml-1">{activeMode === 'first-last' ? 'First Frame' : 'Start Image'}</span>
                     {!uploadedImage1 ? (
-                      <label className="flex flex-col items-center justify-center h-28 w-full border-2 border-dashed border-white/10 rounded-[22px] bg-surface hover:bg-elevated transition-colors cursor-pointer group">
+                      <label className="flex flex-col items-center justify-center h-28 w-full border-2 border-dashed border-inverted/10 rounded-[22px] bg-surface hover:bg-elevated transition-colors cursor-pointer group">
                         <Upload className="w-5 h-5 text-text-secondary group-hover:text-secondary-violet transition-colors mb-2" />
                         <span className="text-xs font-medium text-text-secondary">Upload Image</span>
                         <input type="file" className="hidden" accept="image/*" onChange={(e) => handleImageUpload(e, setUploadedImage1)} />
                       </label>
                     ) : (
-                      <div className="relative w-full h-28 rounded-[22px] overflow-hidden group border border-white/10">
+                      <div className="relative w-full h-28 rounded-[22px] overflow-hidden group border border-inverted/10">
                         <img src={uploadedImage1} alt="Reference" className="w-full h-full object-cover" />
-                        <button onClick={() => setUploadedImage1(null)} className="absolute top-2 right-2 p-1.5 bg-black/50 hover:bg-red-500/80 rounded-full backdrop-blur-md text-white"><X className="w-3 h-3" /></button>
+                        <button onClick={() => setUploadedImage1(null)} className="absolute top-2 right-2 p-1.5 bg-black/50 hover:bg-red-500/80 rounded-full backdrop-blur-md text-inverted"><X className="w-3 h-3" /></button>
                       </div>
                     )}
                   </div>
@@ -337,15 +337,15 @@ export default function VideoStudio() {
                   <div className="flex flex-col">
                     <span className="text-[10px] uppercase font-bold text-text-muted mb-1 ml-1">Last Frame</span>
                     {!uploadedImage2 ? (
-                      <label className="flex flex-col items-center justify-center h-28 w-full border-2 border-dashed border-white/10 rounded-[22px] bg-surface hover:bg-elevated transition-colors cursor-pointer group">
+                      <label className="flex flex-col items-center justify-center h-28 w-full border-2 border-dashed border-inverted/10 rounded-[22px] bg-surface hover:bg-elevated transition-colors cursor-pointer group">
                         <Upload className="w-5 h-5 text-text-secondary group-hover:text-secondary-violet transition-colors mb-2" />
                         <span className="text-xs font-medium text-text-secondary">Upload Image</span>
                         <input type="file" className="hidden" accept="image/*" onChange={(e) => handleImageUpload(e, setUploadedImage2)} />
                       </label>
                     ) : (
-                      <div className="relative w-full h-28 rounded-[22px] overflow-hidden group border border-white/10">
+                      <div className="relative w-full h-28 rounded-[22px] overflow-hidden group border border-inverted/10">
                         <img src={uploadedImage2} alt="Reference" className="w-full h-full object-cover" />
-                        <button onClick={() => setUploadedImage2(null)} className="absolute top-2 right-2 p-1.5 bg-black/50 hover:bg-red-500/80 rounded-full backdrop-blur-md text-white"><X className="w-3 h-3" /></button>
+                        <button onClick={() => setUploadedImage2(null)} className="absolute top-2 right-2 p-1.5 bg-black/50 hover:bg-red-500/80 rounded-full backdrop-blur-md text-inverted"><X className="w-3 h-3" /></button>
                       </div>
                     )}
                   </div>
@@ -354,15 +354,15 @@ export default function VideoStudio() {
                 {(activeMode === 'v2v' || activeMode === 'extend') && (
                   <div className="flex flex-col">
                     {!uploadedVideo ? (
-                      <label className="flex flex-col items-center justify-center h-32 w-full border-2 border-dashed border-white/10 rounded-[22px] bg-surface hover:bg-elevated transition-colors cursor-pointer group">
+                      <label className="flex flex-col items-center justify-center h-32 w-full border-2 border-dashed border-inverted/10 rounded-[22px] bg-surface hover:bg-elevated transition-colors cursor-pointer group">
                         <Video className="w-6 h-6 text-text-secondary group-hover:text-secondary-violet transition-colors mb-2" />
                         <span className="text-xs font-medium text-text-secondary">Upload Base Video (.mp4, .mov)</span>
                         <input type="file" className="hidden" accept="video/*" onChange={handleVideoUpload} />
                       </label>
                     ) : (
-                      <div className="relative w-full h-32 rounded-[22px] overflow-hidden group border border-white/10 bg-black">
+                      <div className="relative w-full h-32 rounded-[22px] overflow-hidden group border border-inverted/10 bg-black">
                         <video src={uploadedVideo} className="w-full h-full object-cover" />
-                        <button onClick={() => setUploadedVideo(null)} className="absolute top-2 right-2 p-1.5 bg-black/50 hover:bg-red-500/80 rounded-full backdrop-blur-md text-white"><X className="w-4 h-4" /></button>
+                        <button onClick={() => setUploadedVideo(null)} className="absolute top-2 right-2 p-1.5 bg-black/50 hover:bg-red-500/80 rounded-full backdrop-blur-md text-inverted"><X className="w-4 h-4" /></button>
                       </div>
                     )}
                   </div>
@@ -383,7 +383,7 @@ export default function VideoStudio() {
               value={prompt}
               onChange={e => setPrompt(e.target.value.slice(0, 1000))}
               placeholder="Cinematic drone shot flying over a neon-lit futuristic city, heavy rain, reflections on metallic surfaces..."
-              className="w-full h-32 bg-surface text-text-primary font-mono text-sm leading-relaxed border border-white/10 rounded-[22px] p-4 pr-12 focus:outline-none focus:border-secondary-violet/50 focus:ring-1 focus:ring-secondary-violet/50 transition-all resize-none shadow-inner"
+              className="w-full h-32 bg-surface text-text-primary font-mono text-sm leading-relaxed border border-inverted/10 rounded-[22px] p-4 pr-12 focus:outline-none focus:border-secondary-violet/50 focus:ring-1 focus:ring-secondary-violet/50 transition-all resize-none shadow-inner"
             />
             <motion.button
               whileTap={{ scale: 0.9 }}
@@ -393,9 +393,9 @@ export default function VideoStudio() {
               title="Enhance Prompt"
             >
               {isEnhancing ? (
-                <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                <div className="w-4 h-4 border-2 border-inverted/30 border-t-white rounded-full animate-spin" />
               ) : (
-                <Sparkles className="w-4 h-4 text-white" />
+                <Sparkles className="w-4 h-4 text-inverted" />
               )}
             </motion.button>
           </div>
@@ -416,7 +416,7 @@ export default function VideoStudio() {
                     <button onClick={() => setEnhancedPrompt('')} className="text-xs text-text-muted hover:text-red-400">Cancel</button>
                     <button 
                       onClick={() => { setPrompt(enhancedPrompt); setEnhancedPrompt(''); }} 
-                      className="text-xs text-secondary-violet hover:text-white font-medium"
+                      className="text-xs text-secondary-violet hover:text-inverted font-medium"
                     >
                       Use This
                     </button>
@@ -450,7 +450,7 @@ export default function VideoStudio() {
                   placeholder="What to exclude (e.g. blurry, deformed, text, ugly, watermarks...)"
                   value={negativePrompt}
                   onChange={(e) => setNegativePrompt(e.target.value)}
-                  className="w-full h-20 bg-surface/50 text-text-primary text-xs leading-relaxed border border-white/10 rounded-2xl p-3 focus:outline-none focus:border-red-500/50 focus:ring-1 focus:ring-red-500/50 transition-all resize-none shadow-inner"
+                  className="w-full h-20 bg-surface/50 text-text-primary text-xs leading-relaxed border border-inverted/10 rounded-2xl p-3 focus:outline-none focus:border-red-500/50 focus:ring-1 focus:ring-red-500/50 transition-all resize-none shadow-inner"
                 />
               </motion.div>
             )}
@@ -467,9 +467,9 @@ export default function VideoStudio() {
             className="w-full h-14 rounded-pill relative overflow-hidden bg-gradient-to-r from-secondary-violet to-primary-blue shadow-[0_0_20px_rgba(124,92,246,0.2)] disabled:opacity-70 disabled:cursor-not-allowed group transition-shadow hover:shadow-[0_0_30px_rgba(124,92,246,0.3)]"
           >
             {isGenerating && (
-              <div className="absolute inset-0 bg-white/10" style={{ width: `${progress}%`, transition: 'width 0.3s ease' }} />
+              <div className="absolute inset-0 bg-inverted/10" style={{ width: `${progress}%`, transition: 'width 0.3s ease' }} />
             )}
-            <div className="absolute inset-0 flex items-center justify-center font-bold tracking-wide text-white">
+            <div className="absolute inset-0 flex items-center justify-center font-bold tracking-wide text-inverted">
               {isGenerating ? (
                 <span className="flex items-center gap-2">
                   <Sparkles className="w-5 h-5 animate-pulse" />
@@ -492,7 +492,7 @@ export default function VideoStudio() {
             className="mt-12"
           >
             <div className="text-sm font-bold tracking-widest uppercase mb-4 text-text-primary px-1">Your Video</div>
-            <div className="relative group rounded-[22px] overflow-hidden aspect-video border border-white/10 bg-surface shadow-xl flex items-center justify-center">
+            <div className="relative group rounded-[22px] overflow-hidden aspect-video border border-inverted/10 bg-surface shadow-xl flex items-center justify-center">
                <video 
                  src={generatedVideo}
                  controls
@@ -503,15 +503,15 @@ export default function VideoStudio() {
                
                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent flex justify-between items-end opacity-0 group-hover:opacity-100 transition-opacity">
                   <div className="flex gap-2">
-                    <button className="px-3 py-1.5 bg-black/40 hover:bg-black/60 rounded-lg backdrop-blur-md text-white text-xs font-medium border border-white/10 transition-colors">
+                    <button className="px-3 py-1.5 bg-black/40 hover:bg-black/60 rounded-lg backdrop-blur-md text-inverted text-xs font-medium border border-inverted/10 transition-colors">
                       Extract Frame
                     </button>
-                    <button className="px-3 py-1.5 bg-black/40 hover:bg-black/60 rounded-lg backdrop-blur-md text-white text-xs font-medium border border-white/10 transition-colors">
+                    <button className="px-3 py-1.5 bg-black/40 hover:bg-black/60 rounded-lg backdrop-blur-md text-inverted text-xs font-medium border border-inverted/10 transition-colors">
                       Extend
                     </button>
                   </div>
                   <div className="flex gap-2">
-                    <button className="p-2 bg-elevated hover:bg-secondary-violet rounded-xl backdrop-blur-md text-white transition-colors">
+                    <button className="p-2 bg-elevated hover:bg-secondary-violet rounded-xl backdrop-blur-md text-inverted hover:text-white transition-colors">
                       <Download className="w-4 h-4" />
                     </button>
                   </div>
@@ -543,12 +543,12 @@ export default function VideoStudio() {
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="fixed top-0 right-0 bottom-0 w-[85%] max-w-[360px] bg-surface/95 border-l border-white/5 backdrop-blur-2xl z-[70] overflow-y-auto custom-scrollbar flex flex-col shadow-2xl"
+            className="fixed top-0 right-0 bottom-0 w-[85%] max-w-[360px] bg-surface/95 border-l border-inverted/5 backdrop-blur-2xl z-[70] overflow-y-auto custom-scrollbar flex flex-col shadow-2xl"
           >
             <div className="flex flex-col h-full">
-              <div className="sticky top-0 bg-surface/80 backdrop-blur-lg px-6 py-5 border-b border-white/5 flex items-center justify-between z-10 w-full mb-6 relative">
+              <div className="sticky top-0 bg-surface/80 backdrop-blur-lg px-6 py-5 border-b border-inverted/5 flex items-center justify-between z-10 w-full mb-6 relative">
                 <h2 className="text-lg font-bold tracking-tight">Video Settings</h2>
-                <button onClick={() => setIsSidebarOpen(false)} className="p-2 rounded-full hover:bg-white/10 transition-colors">
+                <button onClick={() => setIsSidebarOpen(false)} className="p-2 rounded-full hover:bg-inverted/10 transition-colors">
                   <X className="w-5 h-5 text-text-secondary" />
                 </button>
               </div>
@@ -568,7 +568,7 @@ export default function VideoStudio() {
                         onClick={() => setDuration(d)}
                         className={cn(
                           "py-2 rounded-xl text-xs font-bold transition-all border",
-                          duration === d ? "bg-secondary-violet/20 border-secondary-violet text-secondary-violet" : "bg-elevated border-white/5 text-text-muted hover:text-text-primary hover:border-white/20"
+                          duration === d ? "bg-secondary-violet/20 border-secondary-violet text-secondary-violet" : "bg-elevated border-inverted/5 text-text-muted hover:text-text-primary hover:border-inverted/20"
                         )}
                       >
                         {d}s
@@ -587,7 +587,7 @@ export default function VideoStudio() {
                         onClick={() => setResolution(res)}
                         className={cn(
                           "py-2 rounded-xl text-xs font-bold transition-all border",
-                          resolution === res ? "bg-secondary-violet/20 border-secondary-violet text-secondary-violet" : "bg-elevated border-white/5 text-text-muted hover:text-text-primary hover:border-white/20"
+                          resolution === res ? "bg-secondary-violet/20 border-secondary-violet text-secondary-violet" : "bg-elevated border-inverted/5 text-text-muted hover:text-text-primary hover:border-inverted/20"
                         )}
                       >
                         {res}
@@ -606,7 +606,7 @@ export default function VideoStudio() {
                         onClick={() => setAspectRatio(ar.id)}
                         className={cn(
                           "flex flex-col items-center justify-center gap-1 p-3 rounded-2xl border transition-all duration-300",
-                          aspectRatio === ar.id ? "bg-secondary-violet/10 border-secondary-violet text-secondary-violet shadow-[0_0_15px_rgba(124,92,246,0.2)]" : "bg-elevated border-white/5 text-text-muted hover:border-white/20 hover:text-text-primary"
+                          aspectRatio === ar.id ? "bg-secondary-violet/10 border-secondary-violet text-secondary-violet shadow-[0_0_15px_rgba(124,92,246,0.2)]" : "bg-elevated border-inverted/5 text-text-muted hover:border-inverted/20 hover:text-text-primary"
                         )}
                       >
                         <span className="text-xl leading-none">{ar.icon}</span>
@@ -625,7 +625,7 @@ export default function VideoStudio() {
                   <input 
                     type="range" min="1" max="100" step="1" 
                     value={motionStrength} onChange={(e) => setMotionStrength(parseInt(e.target.value))}
-                    className="w-full accent-secondary-violet h-1.5 bg-white/10 rounded-full outline-none"
+                    className="w-full accent-secondary-violet h-1.5 bg-inverted/10 rounded-full outline-none"
                   />
                   <div className="flex justify-between text-[10px] text-text-muted mt-2">
                     <span>Subtle</span>
@@ -643,7 +643,7 @@ export default function VideoStudio() {
                         onClick={() => setSelectedMotion(motion)}
                         className={cn(
                           "px-3 py-1.5 rounded-full text-xs font-medium border transition-colors",
-                          selectedMotion === motion ? "bg-white/10 border-white/20 text-white" : "border-white/5 text-text-muted hover:bg-white/5"
+                          selectedMotion === motion ? "bg-inverted/10 border-inverted/20 text-inverted" : "border-inverted/5 text-text-muted hover:bg-inverted/5"
                         )}
                       >
                         {motion}
@@ -667,7 +667,7 @@ export default function VideoStudio() {
                       >
                         <img src={style.img} alt={style.name} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                         <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-                          <span className="text-[10px] font-bold text-white uppercase tracking-wider">{style.name}</span>
+                          <span className="text-[10px] font-bold text-inverted uppercase tracking-wider">{style.name}</span>
                         </div>
                       </button>
                     ))}
@@ -682,12 +682,12 @@ export default function VideoStudio() {
                       <button
                         key={effect.id}
                         onClick={() => toggleEffect(effect.id)}
-                        className="flex items-center justify-between p-3 rounded-xl bg-elevated border border-white/5 transition-colors hover:border-white/10"
+                        className="flex items-center justify-between p-3 rounded-xl bg-elevated border border-inverted/5 transition-colors hover:border-inverted/10"
                       >
                         <span className="text-sm font-medium text-text-primary">{effect.label}</span>
                         <div className={cn(
                           "w-10 h-5 rounded-full relative transition-colors duration-300",
-                          selectedEffects.includes(effect.id) ? "bg-secondary-violet" : "bg-white/10"
+                          selectedEffects.includes(effect.id) ? "bg-secondary-violet" : "bg-inverted/10"
                         )}>
                           <div className={cn(
                             "absolute top-0.5 w-4 h-4 rounded-full bg-white transition-transform duration-300 shadow",
@@ -713,12 +713,12 @@ export default function VideoStudio() {
             animate={{ x: 0 }}
             exit={{ x: '-100%' }}
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="fixed top-0 left-0 bottom-0 w-[85%] max-w-[360px] bg-surface/95 border-r border-white/5 backdrop-blur-2xl z-[70] overflow-y-auto custom-scrollbar flex flex-col shadow-2xl"
+            className="fixed top-0 left-0 bottom-0 w-[85%] max-w-[360px] bg-surface/95 border-r border-inverted/5 backdrop-blur-2xl z-[70] overflow-y-auto custom-scrollbar flex flex-col shadow-2xl"
           >
             <div className="flex flex-col h-full">
-              <div className="sticky top-0 bg-surface/80 backdrop-blur-lg px-6 py-5 border-b border-white/5 flex items-center justify-between z-10 w-full mb-4 relative">
+              <div className="sticky top-0 bg-surface/80 backdrop-blur-lg px-6 py-5 border-b border-inverted/5 flex items-center justify-between z-10 w-full mb-4 relative">
                 <h2 className="text-lg font-bold tracking-tight flex items-center gap-2"><History className="w-5 h-5"/> History</h2>
-                <button onClick={() => setIsHistoryOpen(false)} className="p-2 rounded-full hover:bg-white/10 transition-colors">
+                <button onClick={() => setIsHistoryOpen(false)} className="p-2 rounded-full hover:bg-inverted/10 transition-colors">
                   <X className="w-5 h-5 text-text-secondary" />
                 </button>
               </div>
@@ -731,17 +731,17 @@ export default function VideoStudio() {
                   </div>
                 ) : (
                   history.map((item) => (
-                    <div key={item.id} className="bg-elevated border border-white/5 rounded-[20px] overflow-hidden flex flex-col">
+                    <div key={item.id} className="bg-elevated border border-inverted/5 rounded-[20px] overflow-hidden flex flex-col">
                       <div className="relative aspect-video bg-black/50 overflow-hidden">
                         <video src={item.video} className="w-full h-full object-cover opacity-90" />
                         <div className="absolute inset-0 flex flex-col justify-end p-2 bg-gradient-to-t from-black/80 to-transparent">
-                          <span className="text-[10px] uppercase font-bold text-white bg-black/50 px-2 py-1 rounded w-fit backdrop-blur">{item.duration}s</span>
+                          <span className="text-[10px] uppercase font-bold text-inverted bg-black/50 px-2 py-1 rounded w-fit backdrop-blur">{item.duration}s</span>
                         </div>
                       </div>
                       <div className="p-4 flex flex-col gap-3">
                         <p className="text-xs text-text-primary line-clamp-3 font-mono leading-relaxed">{item.prompt}</p>
                         <div className="flex flex-wrap gap-2">
-                          <span className="text-[10px] px-2 py-1 bg-white/5 rounded-full text-text-secondary border border-white/10">{item.model.name}</span>
+                          <span className="text-[10px] px-2 py-1 bg-inverted/5 rounded-full text-text-secondary border border-inverted/10">{item.model.name}</span>
                         </div>
                       </div>
                     </div>

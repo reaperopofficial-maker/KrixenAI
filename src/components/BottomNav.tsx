@@ -10,12 +10,12 @@ export default function BottomNav() {
     { name: 'Image', path: '/image', icon: ImageIcon, colorClass: 'text-primary-blue', bgClass: 'bg-primary-blue/10', borderClass: 'border-primary-blue/20', lineClass: 'bg-primary-blue shadow-[0_0_8px_rgba(79,142,247,0.8)]' },
     { name: 'Video', path: '/video', icon: Clapperboard, colorClass: 'text-secondary-violet', bgClass: 'bg-secondary-violet/10', borderClass: 'border-secondary-violet/20', lineClass: 'bg-secondary-violet shadow-[0_0_8px_rgba(124,92,246,0.8)]' },
     { name: 'Voice', path: '/voice', icon: Mic, colorClass: 'text-primary-rose', bgClass: 'bg-primary-rose/10', borderClass: 'border-primary-rose/20', lineClass: 'bg-primary-rose shadow-[0_0_8px_rgba(240,80,110,0.8)]' },
-    { name: 'Profile', path: '/profile', icon: User, colorClass: 'text-white', bgClass: 'bg-white/10', borderClass: 'border-white/20', lineClass: 'bg-white shadow-[0_0_8px_rgba(255,255,255,0.8)]' },
+    { name: 'Profile', path: '/profile', icon: User, colorClass: 'text-inverted', bgClass: 'bg-inverted/10', borderClass: 'border-inverted/20', lineClass: 'bg-inverted shadow-[0_0_8px_rgba(255,255,255,0.8)]' },
   ];
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 flex justify-center pb-6 pt-4 px-4 bg-gradient-to-t from-base via-base/95 to-transparent pointer-events-none">
-      <div className="flex items-center justify-between w-full max-w-sm rounded-[32px] bg-surface/80 backdrop-blur-xl border border-white/5 p-2 shadow-2xl pointer-events-auto">
+      <div className="flex items-center justify-between w-full max-w-sm rounded-[32px] bg-surface/80 backdrop-blur-xl border border-inverted/5 p-2 shadow-2xl pointer-events-auto">
         {tabs.map((tab) => {
           const isActive = location.pathname === tab.path;
 
