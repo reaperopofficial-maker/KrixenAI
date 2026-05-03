@@ -54,14 +54,6 @@ export default function Login() {
     const newShow = !showPassword;
     setShowPassword(newShow);
     setYetiState(newShow ? 'peek' : 'password');
-    // small timeout to allow react to render then focus
-    setTimeout(() => {
-      if (confirmPasswordRef.current && formData.confirmPassword.length > 0) {
-        confirmPasswordRef.current.focus();
-      } else if (passwordRef.current) {
-        passwordRef.current.focus();
-      }
-    }, 10);
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -350,8 +342,6 @@ export default function Login() {
               />
               <button
                 type="button"
-                onMouseDown={(e) => e.preventDefault()}
-                onTouchStart={(e) => { e.preventDefault(); togglePassword(); }}
                 onClick={togglePassword}
                 className="absolute inset-y-0 right-0 pr-4 flex items-center text-text-muted hover:text-text-primary transition-colors"
                 tabIndex={-1}
