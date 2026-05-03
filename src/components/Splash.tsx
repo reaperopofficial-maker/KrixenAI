@@ -5,8 +5,8 @@ export default function Splash() {
   return (
     <div className="fixed inset-0 flex flex-col items-center justify-center bg-base overflow-hidden">
       {/* Blurred Orbs */}
-      <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary-blue rounded-full blur-[100px] opacity-20" />
-      <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-secondary-violet rounded-full blur-[100px] opacity-20" />
+      <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary-blue rounded-full blur-3xl opacity-10" />
+      <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-secondary-violet rounded-full blur-3xl opacity-10" />
 
       {/* Main Content */}
       <motion.div

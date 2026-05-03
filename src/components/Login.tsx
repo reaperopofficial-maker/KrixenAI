@@ -240,8 +240,8 @@ export default function Login() {
         className="w-full max-w-sm rounded-[32px] p-8 pb-12 relative overflow-hidden"
       >
         {/* Decorative blobs */}
-        <div className="absolute -top-12 -left-12 w-48 h-48 bg-primary-blue rounded-full blur-[80px] opacity-20 pointer-events-none" />
-        <div className="absolute -bottom-12 -right-12 w-48 h-48 bg-secondary-violet rounded-full blur-[80px] opacity-20 pointer-events-none" />
+        <div className="absolute -top-12 -left-12 w-48 h-48 bg-primary-blue rounded-full blur-2xl opacity-10 pointer-events-none" />
+        <div className="absolute -bottom-12 -right-12 w-48 h-48 bg-secondary-violet rounded-full blur-2xl opacity-10 pointer-events-none" />
 
         <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 300, damping: 24 } } }} className="relative z-10 flex flex-col items-center mb-8">
           <div className="w-16 h-16 mb-4 rounded-2xl bg-gradient-to-br from-primary-blue to-secondary-violet p-[1.5px]">
