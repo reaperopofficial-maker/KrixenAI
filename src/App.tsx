@@ -67,7 +67,7 @@ function AppContent() {
           className="min-h-screen bg-base text-text-primary flex flex-col relative w-full overflow-hidden"
         >
           <AnimatePresence mode="wait">
-            <Routes location={location} key={location.pathname}>
+            <Routes location={location}>
               <Route path="/login" element={!user ? <motion.div initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.98 }} transition={{ duration: 0.2 }} className="flex-1 flex flex-col min-h-0 w-full"><Login /></motion.div> : <Navigate to="/image" replace />} />
               <Route path="/image" element={user ? <motion.div initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.98 }} transition={{ duration: 0.2 }} className="flex-1 flex flex-col min-h-0 w-full"><ImageStudio /></motion.div> : <Navigate to="/login" replace />} />
               <Route path="/video" element={user ? <motion.div initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.98 }} transition={{ duration: 0.2 }} className="flex-1 flex flex-col min-h-0 w-full"><VideoStudio /></motion.div> : <Navigate to="/login" replace />} />

@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, FormEvent, useEffect } from "react";
+import { useState, ChangeEvent, FormEvent, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
   Eye,
@@ -10,6 +10,7 @@ import {
   X
 } from "lucide-react";
 import { auth } from "../lib/firebase";
+import YetiAvatar, { YetiState } from "./YetiAvatar";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -45,6 +46,24 @@ export default function Login() {
     confirmPassword: "",
   });
 
+  const [yetiState, setYetiState] = useState<YetiState>('idle');
+  const passwordRef = useRef<HTMLInputElement>(null);
+  const confirmPasswordRef = useRef<HTMLInputElement>(null);
+
+  const togglePassword = () => {
+    const newShow = !showPassword;
+    setShowPassword(newShow);
+    setYetiState(newShow ? 'peek' : 'password');
+    // small timeout to allow react to render then focus
+    setTimeout(() => {
+      if (confirmPasswordRef.current && formData.confirmPassword.length > 0) {
+        confirmPasswordRef.current.focus();
+      } else if (passwordRef.current) {
+        passwordRef.current.focus();
+      }
+    }, 10);
+  };
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     if (errors[e.target.name]) {
@@ -61,7 +80,13 @@ export default function Login() {
     if (!isLogin && formData.password !== formData.confirmPassword)
       newErrors.confirmPassword = "Passwords do not match";
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    
+    if (Object.keys(newErrors).length > 0) {
+      setYetiState('error');
+      setTimeout(() => setYetiState('idle'), 2000);
+      return false;
+    }
+    return true;
   };
 
   const getErrorMessage = (error: any) => {
@@ -106,6 +131,7 @@ export default function Login() {
         const randomName = 'User_' + Math.floor(Math.random() * 100000).toString().padStart(5, '0');
         await updateProfile(user, { displayName: randomName });
       }
+      setYetiState('success');
     } catch (error: any) {
       const msg = getErrorMessage(error);
       toast.error(msg);
@@ -244,11 +270,8 @@ export default function Login() {
         <div className="absolute -bottom-12 -right-12 w-48 h-48 bg-secondary-violet rounded-full blur-2xl opacity-10 pointer-events-none" />
 
         <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 300, damping: 24 } } }} className="relative z-10 flex flex-col items-center mb-8">
-          <div className="w-16 h-16 mb-4 rounded-2xl bg-gradient-to-br from-primary-blue to-secondary-violet p-[1.5px]">
-            <div className="w-full h-full bg-surface rounded-[15px] flex items-center justify-center">
-              <Sparkles className="w-8 h-8 text-primary-blue" />
-            </div>
-          </div>
+          <YetiAvatar state={yetiState} emailLength={formData.email.length} />
+          
           <h2 className="text-2xl font-bold tracking-tight">
             <span className="bg-gradient-to-r from-primary-blue to-secondary-violet bg-clip-text text-transparent">
               Krixen
@@ -299,6 +322,8 @@ export default function Login() {
                 placeholder="Email Address"
                 value={formData.email}
                 onChange={handleChange}
+                onFocus={() => setYetiState('email')}
+                onBlur={() => setYetiState('idle')}
                 className={`w-full bg-surface border ${errors.email ? "border-red-500/50" : "border-inverted/10"} rounded-[16px] py-3.5 pl-11 pr-4 text-sm focus:outline-none focus:border-primary-blue/50 focus:ring-1 focus:ring-primary-blue/50 transition-all`}
               />
             </div>
@@ -313,17 +338,23 @@ export default function Login() {
                 <Lock className="h-5 w-5 text-text-muted" />
               </div>
               <input
+                ref={passwordRef}
                 name="password"
                 type={showPassword ? "text" : "password"}
                 placeholder="Password"
                 value={formData.password}
                 onChange={handleChange}
+                onFocus={() => setYetiState(showPassword ? 'peek' : 'password')}
+                onBlur={() => setYetiState('idle')}
                 className={`w-full bg-surface border ${errors.password ? "border-red-500/50" : "border-inverted/10"} rounded-[16px] py-3.5 pl-11 pr-12 text-sm focus:outline-none focus:border-primary-blue/50 focus:ring-1 focus:ring-primary-blue/50 transition-all`}
               />
               <button
                 type="button"
-                onClick={() => setShowPassword(!showPassword)}
+                onMouseDown={(e) => e.preventDefault()}
+                onTouchStart={(e) => { e.preventDefault(); togglePassword(); }}
+                onClick={togglePassword}
                 className="absolute inset-y-0 right-0 pr-4 flex items-center text-text-muted hover:text-text-primary transition-colors"
+                tabIndex={-1}
               >
                 {showPassword ? (
                   <EyeOff className="h-5 w-5" />
@@ -353,11 +384,14 @@ export default function Login() {
                     <Lock className="h-5 w-5 text-text-muted" />
                   </div>
                   <input
+                    ref={confirmPasswordRef}
                     name="confirmPassword"
                     type={showPassword ? "text" : "password"}
                     placeholder="Confirm Password"
                     value={formData.confirmPassword}
                     onChange={handleChange}
+                    onFocus={() => setYetiState(showPassword ? 'peek' : 'password')}
+                    onBlur={() => setYetiState('idle')}
                     className={`w-full bg-surface border ${errors.confirmPassword ? "border-red-500/50" : "border-inverted/10"} rounded-[16px] py-3.5 pl-11 pr-4 text-sm focus:outline-none focus:border-primary-blue/50 focus:ring-1 focus:ring-primary-blue/50 transition-all`}
                   />
                 </div>
